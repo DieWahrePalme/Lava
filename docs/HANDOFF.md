@@ -60,6 +60,22 @@ Note: the dev URL ends in `/Lava/` because of the GitHub Pages `base`.
 - `demo/index.html` = original red-lava demo by boss, kept as visual reference
   (not part of the build).
 
+## Domain (in progress, decided by Moritz)
+- Moritz looks for a professional, cheap `.de` domain (German customers).
+- Ideas (DNS showed no entry, so probably free, verify at registration):
+  `lava-musik.de` (favourite), `lavaklang.de`, `lava-handpan.de`,
+  `lava-klangreise.de`, `lava-meditation.de`. `lava-music.de` is taken.
+- Cloudflare Registrar probably does NOT sell `.de` (not confirmed; check by
+  searching in the Cloudflare dashboard). Plan B: register `.de` at a German
+  registrar (IONOS, INWX, Strato), use Cloudflare only for free DNS, keep the
+  site on GitHub Pages. Domain should be registered on the name of Gianni
+  and/or Jimmy, auto-renew on.
+- When a domain exists: set `site` to the domain and `base` to `/` in
+  `astro.config.mjs`, add `public/CNAME` with the domain, set the custom
+  domain in GitHub Pages (Settings > Pages), add DNS records (A records to
+  GitHub Pages IPs or a CNAME for `www`), enable "Enforce HTTPS", update
+  links if any are absolute. Then rebuild and test.
+
 ## Next
 - Exact Facebook page URL (now only a search link, see `follow.channels`).
 - Live dates when the band has them (`live.dates`; section hides the list if empty).
