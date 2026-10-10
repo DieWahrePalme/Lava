@@ -6,7 +6,7 @@ export const site = {
   lang: 'en',
   title: 'LAVA – spiritual music',
   description: 'Placeholder: Lava is a spiritual music project with handpan and guitar, inspired by Buddha and Shiva.',
-  tagline: 'spiritual music · handpan · guitar',
+  tagline: 'meditation music · handpan · guitar',
 };
 
 export const about = {
@@ -71,6 +71,7 @@ export const contact = {
   title: 'Come closer.',
   text: 'Placeholder: concerts, ceremonies, meditations, bookings.',
   email: 'booking@example.com',
+  phone: '0173 / 35 02 608', // from the band's business card
   cta: 'Get in touch',
   socials: [
     { label: 'Instagram', href: 'https://www.instagram.com/lava_spiritual_music/' },

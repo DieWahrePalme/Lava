@@ -7,28 +7,31 @@ float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
  return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
 float fbm(vec2 p){float a=.5,s=0.;for(int i=0;i<5;i++){s+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return s;}
-// liquid gold: dark bronze -> amber -> gold -> champagne
-vec3 lava(float v){
- vec3 c=mix(vec3(.04,.012,.004),vec3(.42,.14,.04),smoothstep(.2,.5,v));
- c=mix(c,vec3(.85,.42,.12),smoothstep(.45,.75,v));
- return mix(c,vec3(1.,.74,.4),smoothstep(.72,1.,v));}
+// pearly ivory background with soft golden liquid clouds
+vec3 bgc(float v){
+ vec3 c=mix(vec3(.99,.965,.915),vec3(.96,.89,.76),smoothstep(.25,.6,v));
+ return mix(c,vec3(.93,.80,.55),smoothstep(.6,1.,v));}
+// polished liquid gold for the letters
+vec3 goldc(float v){
+ vec3 c=mix(vec3(.5,.3,.09),vec3(.76,.52,.17),smoothstep(0.,.5,v));
+ return mix(c,vec3(.95,.8,.5),smoothstep(.5,1.,v));}
 float mk(vec2 u){return texture2D(M,vec2(u.x,1.-u.y)).r;}
 void main(){
  vec2 uv=gl_FragCoord.xy/R; vec2 p=(gl_FragCoord.xy-.5*R)/R.y;
- float t=T*.12+S*2.5;
- vec2 q=p*(2.2-S*.6)+vec2(0.,-t);
+ float t=T*.045+S*.5;
+ vec2 q=p*(2.2-S*.15)+vec2(0.,-t);
  vec2 w=vec2(fbm(q+vec2(0,t*.5)),fbm(q+vec2(5.2,1.3)-t*.3));
  float f=fbm(q+3.*w);
- float v=smoothstep(.13,.85,f+.12*sin(S*6.));
- vec3 col=lava(v);
- // glossy liquid sheen from the slope of the flow
+ float v=smoothstep(.2,.85,f);
+ vec3 col=bgc(v);
+ // soft sheen from the slope of the flow
  float e=.012;
  vec2 g=vec2(fbm(q+3.*w+vec2(e,0.))-f,fbm(q+3.*w+vec2(0.,e))-f)/e;
  vec3 nn=normalize(vec3(-g*.35,1.));
- float spec=pow(max(dot(nn,normalize(vec3(-.4,.6,.7))),0.),24.);
- col+=vec3(1.,.78,.35)*spec*.55*(.3+v);
- float hero=1.-smoothstep(.05,.7,H); // title fully gone after ~0.7 screens
- vec2 mu=(uv-vec2(.5,.42))/(1.+H*1.2)+vec2(.5,.42); // letters fly towards you while scrolling
+ float spec=pow(max(dot(nn,normalize(vec3(-.4,.6,.7))),0.),20.);
+ col=col*(.95+.08*nn.x)+vec3(1.,.97,.9)*spec*.18;
+ float hero=1.-smoothstep(.0,.5,H); // title fully gone after ~0.7 screens
+ vec2 mu=(uv-vec2(.5,.42))/(1.+H*.25)+vec2(.5,.42); // letters fly towards you while scrolling
  float m=mk(mu);
  vec2 r=vec2(.011*R.y/R.x,.011);
  float gx=mk(mu+vec2(r.x,0.))-mk(mu-vec2(r.x,0.));
@@ -38,17 +41,14 @@ void main(){
  // extrusion: look up-left for letter pixels, so a dark side wall appears down-right
  float ext=0.,dep=0.;
  for(int i=1;i<=14;i++){float fi=float(i);
-  float k=mk(mu+vec2(-.0013*R.y/R.x,.0013)*fi);
+  float k=mk(mu+vec2(-.0009*R.y/R.x,.0009)*fi);
   if(ext<.5&&k>.5){ext=1.;dep=fi/14.;}}
- vec3 hot=lava(clamp(f*1.5+.35,0.,1.))*1.25+vec3(.08,.05,0.);
- vec3 face=hot*(.6+.75*diff)+vec3(1.,.7,.25)*length(vec2(gx,gy))*.9+vec3(1.,.8,.4)*pow(max(diff,0.),6.)*.5;
- vec3 wall=vec3(.4,.15,.04)*(1.-dep*.8);
- col*=.72;
+ float lv=clamp(f*1.3+.15+.3*diff,0.,1.);
+ vec3 face=goldc(lv)+vec3(1.,.9,.65)*length(vec2(gx,gy))*.15;
+ vec3 wall=vec3(.66,.5,.24)*(1.-dep*.35);
  col=mix(col,wall,ext*(1.-m)*hero);
  col=mix(col,face,m*hero);
- col=mix(col,min(col*1.5,vec3(1.,.72,.38)),(1.-m*hero)*.3);
- col*=1.-.35*length(uv-.5);
- col=min(col,vec3(1.,.72,.38));
+ col*=1.-.12*length(uv-.5);
  gl_FragColor=vec4(col,1.);}`;
 
 export function startLava(cv: HTMLCanvasElement, word: string): boolean {
@@ -83,7 +83,7 @@ export function startLava(cv: HTMLCanvasElement, word: string): boolean {
 
   function resize() {
     // Lower resolution on phones: the lava is soft, so it stays smooth and cheap.
-    const d = Math.min(devicePixelRatio || 1, innerWidth < 700 ? 1 : 1.5);
+    const d = Math.min(devicePixelRatio || 1, 2);
     cv.width = Math.round(innerWidth * d);
     cv.height = Math.round(innerHeight * d);
     gl!.viewport(0, 0, cv.width, cv.height);

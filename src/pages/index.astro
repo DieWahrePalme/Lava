@@ -11,7 +11,7 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content={site.description} />
-  <meta name="theme-color" content="#080604" />
+  <meta name="theme-color" content="#fbf5e9" />
   <title>{site.title}</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><rect width='8' height='8' rx='2' fill='%23c8902a'/></svg>" />
   <script is:inline>document.documentElement.classList.remove('nojs')</script>
@@ -77,6 +77,7 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
         <h2>{contact.title}</h2><p class="t">{contact.text}</p>
         <a class="btn" href={`mailto:${contact.email}`}>{contact.cta}</a>
         <p><a class="mail" href={`mailto:${contact.email}`}>{contact.email}</a></p>
+        <p><a class="mail" href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`}>{contact.phone}</a></p>
         <div class="pills">{contact.socials.map((l) => <a class="pill" href={l.href}>{l.label}</a>)}</div>
       </div>
     </section>
@@ -100,7 +101,7 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
     const upd = () => {
       const H = scrollY / innerHeight;
       root.style.setProperty('--h', String(H));
-      root.style.setProperty('--m', String(Math.min(1, Math.max(0, (H - 0.1) / 0.6)) * 0.4));
+      root.style.setProperty('--m', String(Math.min(1, Math.max(0, (H - 0.1) / 0.6)) * 0.28));
     };
     addEventListener('scroll', upd, { passive: true });
     upd();
