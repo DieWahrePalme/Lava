@@ -128,3 +128,9 @@ h3 { font-family: var(--display); font-weight: 400; font-size: clamp(1.2rem, 4vw
 .video .play::after { content: ""; position: absolute; left: 25px; top: 20px; border-style: solid; border-width: 12px 0 12px 20px; border-color: transparent transparent transparent #9a6a1a; }
 .video .vt { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 16px 12px; text-align: left; color: #fffaf0; font-family: var(--display); letter-spacing: .08em; text-transform: uppercase; font-size: .9rem; background: linear-gradient(transparent, rgba(20, 10, 4, .75)); }
 .video-frame { border: 0; cursor: auto; }
+
+/* icons: same on every device (SVG, no text symbols) */
+.card .sym { display: block; width: 46px; height: 46px; margin-bottom: 1rem; }
+.sym svg { display: block; width: 100%; height: 100%; }
+.social .go { display: block; width: 22px; height: 22px; font-size: 0; }
+.social .go svg { display: block; width: 100%; height: 100%; }

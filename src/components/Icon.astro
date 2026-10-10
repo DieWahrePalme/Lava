@@ -1,0 +1,35 @@
+---
+// Own line icons (24x24, stroke only) so they look identical on every device.
+// Do not use text symbols/emoji for icons: phones draw them differently.
+interface Props { name: 'mindful' | 'balance' | 'release' | 'whole' | 'arrow' }
+const { name } = Astro.props;
+---
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {name === 'mindful' && (<>
+    <path d="M12 3.5c2.6 2.6 3.2 5.6 0 10.5-3.2-4.9-2.6-7.9 0-10.5z" />
+    <path d="M12 14c-3.4 0-6.6-1.2-8.2-5.2 3.8-.4 6.6 1.2 8.2 5.2z" />
+    <path d="M12 14c3.4 0 6.6-1.2 8.2-5.2-3.8-.4-6.6 1.2-8.2 5.2z" />
+    <path d="M5.5 18.2c4 2 9 2 13 0" />
+  </>)}
+  {name === 'balance' && (<>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 3a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 0 0 9" />
+    <circle cx="12" cy="7.5" r=".9" />
+    <circle cx="12" cy="16.5" r=".9" />
+  </>)}
+  {name === 'release' && (<>
+    <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" />
+    <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
+    <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
+  </>)}
+  {name === 'whole' && (<>
+    <circle cx="12" cy="5" r="2" />
+    <path d="M12 8v6.5" />
+    <path d="M6.5 12.5 12 10l5.5 2.5" />
+    <path d="M9.5 20.5c-3.2 0-5-.9-5-2s1.8-2 5-2h5c3.2 0 5 .9 5 2s-1.8 2-5 2z" />
+  </>)}
+  {name === 'arrow' && (<>
+    <path d="M5 12h14" />
+    <path d="m13 6 6 6-6 6" />
+  </>)}
+</svg>

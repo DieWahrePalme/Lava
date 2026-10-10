@@ -1,14 +1,15 @@
 # Handoff: Lava web page
 
-Status: template is running locally. Nothing committed yet.
+Status: live with the band's real German content. Imprint/privacy still missing.
 
 ## Run it
 ```
 cd ~/Programming/Lava
 npm install
-npm run dev      # http://localhost:4400  (phone: http://100.117.131.14:4400)
-npm run build    # static files in dist/ (GitHub Pages / Cloudflare Pages)
+npm run dev      # http://localhost:4400/Lava/  (phone: http://100.117.131.14:4400/Lava/)
+npm run build    # static files in dist/
 ```
+Note: the dev URL ends in `/Lava/` because of the GitHub Pages `base`.
 
 ## Live
 - Repo: https://github.com/DieWahrePalme/Lava (public), branch `main`.
@@ -17,48 +18,58 @@ npm run build    # static files in dist/ (GitHub Pages / Cloudflare Pages)
   Pages source = GitHub Actions). `astro.config.mjs` has `site` and `base: '/Lava'`.
 - The public site shows the band's phone number (Moritz agreed). Remove it in
   `src/content.ts` (`contact.phone`) if that changes.
+- Commit and push only when Moritz asks.
 
 ## Done
 - Astro + TypeScript, static output, port 4400 (not 8081 / 4321).
-- All copy and links in one file: `src/content.ts`.
-- Sections: Hero (LAVA), About, Buddha/Shiva, Instruments (handpan, guitar),
-  Music, Live, Follow (Instagram, YouTube, Facebook), Contact (incl. phone
-  from the band's business card), Footer.
-- Look (current): light, calm ivory and gold, based on research of yoga and
-  spiritual sites (cream, white space, soft gold, thin serif). Slow golden
-  marble background (WebGL, `src/scripts/lava.ts`), LAVA as a clean,
-  widely spaced thin serif title (Cinzel) in flat gold with a slow colour flow,
-  framed by four corner mandalas, all fading out after ~0.4 screens of scrolling, few slow golden dust specks (`src/scripts/embers.ts`),
-  fine gold lotus mandala centred behind content (`src/components/Mandala.astro`).
-- Mobile: renders at up to 2x for crisp letters, checked in an iPhone 15
-  emulation (Chromium, not real Safari). `prefers-reduced-motion` gives a
-  static background and no animation. Fallback if WebGL is missing.
-- Tried and removed: a Three.js 3D figure (too futuristic), the dark red-gold look, 3D and rounded title styles (too playful).
-- `demo/index.html` = the original red-lava demo by boss. Kept on purpose as a
-  visual reference (not part of the build).
+- All copy and links in one file: `src/content.ts` (German, from the band).
+- Sections: Hero (LAVA, "Musik für die Seele", Innehalten · Atmen · Eintauchen ·
+  Loslassen), Eintauchen/Loslassen/Ankommen (about), Raum zum Ankommen (yoga
+  values + Buddha-lava picture), Instruments (Akustikgitarre, Handpan,
+  Percussion, ruhige Beats), Biografie (band photo, Gianni, Jimmy, how LAVA
+  started), Hören (3 YouTube previews), Live (no dates yet), Für Yoga-Studios
+  (the band's letter), Folge dem Fluss (Instagram, YouTube, Facebook), Kontakt
+  (phone), Footer.
+- YouTube: click-to-load with `youtube-nocookie`, preview images stored locally
+  (`src/assets/video-<id>.jpg`). Videos are listed in `music.videos`.
+  Not used: "23. April 2026", short "12. April 2026".
+- Images through `astro:assets` (webp, responsive, lazy). Files in `src/assets/`:
+  `band.jpg`, `buddha-lava.jpg`, video previews.
+- Look: light, calm ivory and gold (researched yoga/spiritual sites). Slow golden
+  marble WebGL background (`src/scripts/lava.ts`, kept cheap for phones), LAVA
+  title as real gradient text (Cinzel, clean, no 3D), four corner mandalas on
+  the hero, centred mandala behind content (`src/components/*Mandala*.astro`),
+  few golden dust specks (`src/scripts/embers.ts`). Title and hero mandalas fade
+  out with scroll.
+- Mobile: checked in an iPhone 15 emulation (Chromium, not real Safari), no
+  sideways scroll at 320/393/430/768 px, safe-area insets, no backdrop blur
+  (it made scrolling jerky). `prefers-reduced-motion` = static background, no
+  animation.
+- Tried and removed: Three.js 3D figure, dark red-gold look, 3D and rounded
+  title styles, duplicate LAVA logo image.
+- `demo/index.html` = original red-lava demo by boss, kept as visual reference
+  (not part of the build).
 
 ## Next
-- Test on a real iPhone/Android (smoothness, letter sharpness); check desktop width, full scroll. Optional: install WebKit for Playwright (`playwright-cli install-browser webkit`) for closer iPhone tests.
-- Real band content: texts, photos, logo, audio/video, tour dates.
-- Logo (SVG or transparent PNG) into hero or Buddha/Shiva section.
-- Music section: real YouTube/Spotify links or embeds.
-- Live section: real dates.
-- Imprint and privacy pages (legal text needed, Germany).
-- Run `npm run build` and test the static output; set `site`/`base` in
-  `astro.config.mjs` for GitHub Pages.
-- Commit and push only when Moritz asks.
+- Impressum and Datenschutz pages (footer links are `#`). Needs legal text and
+  address. Privacy text must mention YouTube embeds and GitHub Pages hosting.
+- Exact Facebook page URL (now only a search link, see `follow.channels`).
+- Booking email, if there is one (only phone is shown).
+- Live dates when the band has them (`live.dates`; section hides the list if empty).
+- Own recordings (Spotify etc.) in `music`.
+- Optional: English version, own domain, smaller logo in hero.
+- Test on a real iPhone/Android (smoothness). If still jerky, lower effects
+  further (fewer dust specks, lower background resolution).
 
 ## Open questions (ask the band)
-- Exact Facebook page URL (current link is only a Facebook search for "LAVA MeditationMusic").
-- The band's Instagram handle is `lava_spiritual_music` (the business card has a typo without the t).
-- Is the phone number allowed to be public on the site?
-- Instagram, Facebook and YouTube could not be read automatically (login
-  walls). Real bio/post texts would help to write better copy.
-- Singer / percussion on the site, or only handpan and guitar?
-- May we use the forest video (handpan + guitar) and the circular logo?
-- Final colours (ivory and gold now; maybe a light cream section or warmer/cooler tone), domain, languages (German/English).
-- Real Buddha/Shiva wording.
+- Are Gianni and Jimmy OK with the band photo and phone number being public?
+- Imprint details (name, address) and privacy contact.
+- Percussion / "Schlagzeug": listed as instrument next to handpan. Correct?
+- Final colours and the use of the red lava logo (now only as picture in
+  "Raum zum Ankommen").
 
 ## Notes
-- No real band assets are in the repo. All text is placeholder.
+- The Instagram handle is `lava_spiritual_music` (business card has a typo).
+- Pictures and texts come from the band via Moritz; the Buddha-lava pictures
+  look AI-generated, so check rights/labelling if needed.
 - No secrets in the repo.

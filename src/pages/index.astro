@@ -6,6 +6,7 @@ import '@fontsource/cinzel/700.css';
 import Mandala from '../components/Mandala.astro';
 import HeroMandalas from '../components/HeroMandalas.astro';
 import { Image } from 'astro:assets';
+import Icon from '../components/Icon.astro';
 import { site, about, occasions, instruments, bio, music, live, yoga, follow, contact, footer } from '../content';
 import buddha from '../assets/buddha-lava.jpg';
 import band from '../assets/band.jpg';
@@ -56,7 +57,7 @@ const thumb = (id: string) => thumbs[`../assets/video-${id}.jpg`].default;
         </div>
       </div>
       <ul class="themes">
-        {occasions.items.map((i) => <li class="card rv"><span class="sym" aria-hidden="true">{i.symbol}</span><b>{i.name}</b><span>{i.text}</span></li>)}
+        {occasions.items.map((i) => <li class="card rv"><span class="sym"><Icon name={i.icon} /></span><b>{i.name}</b><span>{i.text}</span></li>)}
       </ul>
       <p class="t closing rv">{occasions.closing}</p>
     </section>
@@ -128,7 +129,7 @@ const thumb = (id: string) => thumbs[`../assets/video-${id}.jpg`].default;
       <div class="rv">
         <h2>{follow.title}</h2><p class="t">{follow.text}</p>
         <ul class="social">
-          {follow.channels.map((c) => <li><a class="card" href={c.href} target="_blank" rel="noopener noreferrer"><b>{c.name}</b><span>{c.handle}</span><span class="go" aria-hidden="true">→</span></a></li>)}
+          {follow.channels.map((c) => <li><a class="card" href={c.href} target="_blank" rel="noopener noreferrer"><b>{c.name}</b><span>{c.handle}</span><span class="go"><Icon name="arrow" /></span></a></li>)}
         </ul>
         <p class="tags" aria-label="Hashtags">{follow.tags.map((t) => <span>#{t}</span>)}</p>
       </div>
