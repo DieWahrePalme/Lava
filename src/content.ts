@@ -123,7 +123,21 @@ export const contact = {
 export const footer = {
   text: '© LAVA · Gianni von Weitershausen & Jimmy Götz',
   links: [
-    { label: 'Impressum', href: '#' },
-    { label: 'Datenschutz', href: '#' },
+    { label: 'Impressum', path: 'impressum/' },
+    { label: 'Datenschutz', path: 'datenschutz/' },
   ],
+};
+
+// Legal data for Impressum and Datenschutz. Keep values without [brackets] (brackets show a draft notice).
+// The legal texts themselves are in src/pages/impressum.astro and datenschutz.astro.
+export const legal = {
+  project: 'LAVA',
+  // Two private persons (no GbR), confirmed by Moritz.
+  owners: ['Gianni von Weitershausen', 'Jimmy Götz'],
+  street: 'Kirstattstraße 18',
+  city: '89407 Dillingen an der Donau (Ortsteil Kicklingen)',
+  email: 'Jimmy0815@yahoo.de',
+  phone: contact.phone,
+  updated: 'Oktober 2026',
+  back: 'Zur Startseite',
 };

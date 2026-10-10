@@ -1,0 +1,33 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { legal } from '../content';
+---
+<Legal title="Impressum">
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>
+    {legal.project} – ein Musikprojekt von<br />
+    {legal.owners.join(' und ')}<br />
+    {legal.street}<br />
+    {legal.city}
+  </p>
+
+  <h2>Kontakt</h2>
+  <p>
+    Telefon: <a href={`tel:${legal.phone.replace(/[^+\d]/g, '')}`}>{legal.phone}</a><br />
+    E-Mail: {legal.email}
+  </p>
+
+  <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+  <p>{legal.owners.join(' und ')}, Anschrift wie oben.</p>
+
+  <h2>Haftung für Inhalte</h2>
+  <p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen. Bei Bekanntwerden von Rechtsverletzungen entfernen wir entsprechende Inhalte umgehend.</p>
+
+  <h2>Haftung für Links</h2>
+  <p>Diese Seite enthält Links zu externen Webseiten Dritten (zum Beispiel Instagram, Facebook und YouTube). Auf deren Inhalte haben wir keinen Einfluss. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.</p>
+
+  <h2>Urheberrecht</h2>
+  <p>Die Texte, Bilder und Videos auf dieser Seite unterliegen dem Urheberrecht. Eine Verwendung außerhalb der Grenzen des Urheberrechts bedarf unserer Zustimmung.</p>
+
+  <p class="stand">Stand: {legal.updated}</p>
+</Legal>
