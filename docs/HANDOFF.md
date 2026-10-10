@@ -10,6 +10,14 @@ npm run dev      # http://localhost:4400  (phone: http://100.117.131.14:4400)
 npm run build    # static files in dist/ (GitHub Pages / Cloudflare Pages)
 ```
 
+## Live
+- Repo: https://github.com/DieWahrePalme/Lava (public), branch `main`.
+- Site: https://diewahrepalme.github.io/Lava/
+- Every push to `main` deploys automatically (`.github/workflows/deploy.yml`,
+  Pages source = GitHub Actions). `astro.config.mjs` has `site` and `base: '/Lava'`.
+- The public site shows the band's phone number (Moritz agreed). Remove it in
+  `src/content.ts` (`contact.phone`) if that changes.
+
 ## Done
 - Astro + TypeScript, static output, port 4400 (not 8081 / 4321).
 - All copy and links in one file: `src/content.ts`.
@@ -18,14 +26,14 @@ npm run build    # static files in dist/ (GitHub Pages / Cloudflare Pages)
   from the band's business card), Footer.
 - Look (current): light, calm ivory and gold, based on research of yoga and
   spiritual sites (cream, white space, soft gold, thin serif). Slow golden
-  marble background (WebGL, `src/scripts/lava.ts`), LAVA as polished
-  liquid-gold 3D-look serif letters (Cinzel) that fade out fully after ~0.5
-  screens of scrolling, few slow golden dust specks (`src/scripts/embers.ts`),
+  marble background (WebGL, `src/scripts/lava.ts`), LAVA as a clean,
+  widely spaced thin serif title (Cinzel) in flat gold with a slow colour flow,
+  framed by four corner mandalas, all fading out after ~0.4 screens of scrolling, few slow golden dust specks (`src/scripts/embers.ts`),
   fine gold lotus mandala centred behind content (`src/components/Mandala.astro`).
 - Mobile: renders at up to 2x for crisp letters, checked in an iPhone 15
   emulation (Chromium, not real Safari). `prefers-reduced-motion` gives a
   static background and no animation. Fallback if WebGL is missing.
-- Tried and removed: a Three.js 3D figure (too futuristic), the dark red-gold look.
+- Tried and removed: a Three.js 3D figure (too futuristic), the dark red-gold look, 3D and rounded title styles (too playful).
 - `demo/index.html` = the original red-lava demo by boss. Kept on purpose as a
   visual reference (not part of the build).
 
@@ -38,7 +46,7 @@ npm run build    # static files in dist/ (GitHub Pages / Cloudflare Pages)
 - Imprint and privacy pages (legal text needed, Germany).
 - Run `npm run build` and test the static output; set `site`/`base` in
   `astro.config.mjs` for GitHub Pages.
-- Commit when Moritz agrees.
+- Commit and push only when Moritz asks.
 
 ## Open questions (ask the band)
 - Exact Facebook page URL (current link is only a Facebook search for "LAVA MeditationMusic").
