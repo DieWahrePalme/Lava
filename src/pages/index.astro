@@ -1,0 +1,114 @@
+---
+import '../styles/global.css';
+import '@fontsource/cinzel/900.css';
+import '@fontsource/cinzel/700.css';
+import Mandala from '../components/Mandala.astro';
+import { site, about, path, follow, instruments, music, live, contact, footer } from '../content';
+---
+<!doctype html>
+<html lang={site.lang} class="nojs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content={site.description} />
+  <meta name="theme-color" content="#080604" />
+  <title>{site.title}</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><rect width='8' height='8' rx='2' fill='%23c8902a'/></svg>" />
+  <script is:inline>document.documentElement.classList.remove('nojs')</script>
+</head>
+<body>
+  <a class="skip" href="#about">Skip to content</a>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <Mandala />
+  <canvas id="embers-back" class="embers" aria-hidden="true"></canvas>
+  <main>
+    <section class="hero">
+      <h1 class="vh" id="top">{site.name}</h1>
+      <p>{site.tagline}</p>
+    </section>
+
+    <section id="about"><div class="rv"><h2>{about.title}</h2><p class="t">{about.text}</p></div></section>
+
+    <section id="path">
+      <div class="rv"><h2>{path.title}</h2><p class="t">{path.text}</p></div>
+      <ul class="themes">
+        {path.items.map((i) => <li class="card rv"><span class="sym" aria-hidden="true">{i.symbol}</span><b>{i.name}</b><span>{i.text}</span></li>)}
+      </ul>
+    </section>
+
+    <section id="instruments">
+      <div class="rv"><h2>{instruments.title}</h2></div>
+      <ul class="cards">
+        {instruments.items.map((i) => <li class="card rv"><b>{i.name}</b><span>{i.text}</span></li>)}
+      </ul>
+    </section>
+
+    <section id="music">
+      <div class="rv">
+        <h2>{music.title}</h2><p class="t">{music.text}</p>
+        <ul class="list">
+          {music.tracks.map((t) => <li class="row"><span class="d" aria-hidden="true">▶</span><span>{t.title}</span><span class="r">{t.length}</span></li>)}
+        </ul>
+        <div class="pills">{music.links.map((l) => <a class="pill" href={l.href}>{l.label}</a>)}</div>
+      </div>
+    </section>
+
+    <section id="live">
+      <div class="rv">
+        <h2>{live.title}</h2><p class="t">{live.text}</p>
+        <ul class="list">
+          {live.dates.map((d) => <li class="row"><span class="d">{d.date}</span><span>{d.place}<small>{d.venue}</small></span><span class="r">{d.note}</span></li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section id="follow">
+      <div class="rv">
+        <h2>{follow.title}</h2><p class="t">{follow.text}</p>
+        <ul class="social">
+          {follow.channels.map((c) => <li><a class="card" href={c.href} target="_blank" rel="noopener noreferrer"><b>{c.name}</b><span>{c.handle}</span><span class="go" aria-hidden="true">→</span></a></li>)}
+        </ul>
+        <p class="tags" aria-label="Hashtags">{follow.tags.map((t) => <span>#{t}</span>)}</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="rv">
+        <h2>{contact.title}</h2><p class="t">{contact.text}</p>
+        <a class="btn" href={`mailto:${contact.email}`}>{contact.cta}</a>
+        <p><a class="mail" href={`mailto:${contact.email}`}>{contact.email}</a></p>
+        <div class="pills">{contact.socials.map((l) => <a class="pill" href={l.href}>{l.label}</a>)}</div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <span>{footer.text}</span>
+    {footer.links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </footer>
+  <canvas id="embers-front" class="embers front" aria-hidden="true"></canvas>
+
+  <script>
+    import { startLava } from '../scripts/lava';
+    import { startEmbers } from '../scripts/embers';
+    import { site } from '../content';
+    startEmbers(document.getElementById('embers-back') as HTMLCanvasElement, document.getElementById('embers-front') as HTMLCanvasElement);
+    if (!startLava(document.getElementById('gl') as HTMLCanvasElement, site.name)) {
+      document.documentElement.classList.add('no-gl');
+    }
+    // scroll progress for the mandala (fades in as the LAVA title fades out)
+    const root = document.documentElement;
+    const upd = () => {
+      const H = scrollY / innerHeight;
+      root.style.setProperty('--h', String(H));
+      root.style.setProperty('--m', String(Math.min(1, Math.max(0, (H - 0.1) / 0.6)) * 0.4));
+    };
+    addEventListener('scroll', upd, { passive: true });
+    upd();
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }),
+      { threshold: 0.2 },
+    );
+    document.querySelectorAll('.rv').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

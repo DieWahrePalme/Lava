@@ -1,0 +1,20 @@
+{
+  "name": "lava",
+  "type": "module",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev --host --port 4400",
+    "build": "astro build",
+    "preview": "astro preview --host --port 4400"
+  },
+  "dependencies": {
+    "@fontsource/cinzel": "^5.3.0",
+    "@fontsource/unbounded": "^5.3.0",
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "typescript": "^5.6.0"
+  }
+}

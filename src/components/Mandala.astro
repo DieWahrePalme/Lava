@@ -1,0 +1,20 @@
+---
+// Original lotus mandala (line art). Fades in and turns slowly while scrolling.
+const petals = (n: number, rx: number, ry: number, cy: number) =>
+  Array.from({ length: n }, (_, i) => ({ r: (360 / n) * i, rx, ry, cy }));
+const layers = [
+  ...petals(8, 34, 120, -120),
+  ...petals(16, 20, 90, -200),
+  ...petals(24, 12, 60, -285),
+];
+const dots = Array.from({ length: 48 }, (_, i) => (360 / 48) * i);
+---
+<div class="mandala" aria-hidden="true">
+  <div class="breath"></div>
+  <svg viewBox="-400 -400 800 800" fill="none" stroke="currentColor" stroke-width="1.2">
+    <circle r="385" /><circle r="372" stroke-dasharray="2 8" />
+    {layers.map((p) => <ellipse cx="0" cy={p.cy} rx={p.rx} ry={p.ry} transform={`rotate(${p.r})`} />)}
+    {dots.map((r) => <circle cx="0" cy="-340" r="3" transform={`rotate(${r})`} />)}
+    <circle r="70" /><circle r="46" /><circle r="22" />
+  </svg>
+</div>
