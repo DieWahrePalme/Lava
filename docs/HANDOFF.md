@@ -14,20 +14,23 @@ npm run build    # static files in dist/ (GitHub Pages / Cloudflare Pages)
 - Astro + TypeScript, static output, port 4400 (not 8081 / 4321).
 - All copy and links in one file: `src/content.ts`.
 - Sections: Hero (LAVA), About, Buddha/Shiva, Instruments (handpan, guitar),
-  Music, Live, Follow (Instagram, YouTube, Facebook), Contact, Footer.
-- Look: liquid copper-gold WebGL lava (`src/scripts/lava.ts`), 3D-look serif
-  title (Cinzel) with bevel and side wall, title fades out fully after about
-  0.7 screens of scrolling, embers on 3 depth layers with scroll parallax
-  (`src/scripts/embers.ts`), slowly turning lotus mandala behind content
-  (`src/components/Mandala.astro`).
-- Mobile first: lower render resolution on phones, `prefers-reduced-motion`
-  gives static lava and no animation, fallback if WebGL is missing.
-- A 3D figure (Three.js) was tried and removed: too futuristic.
+  Music, Live, Follow (Instagram, YouTube, Facebook), Contact (incl. phone
+  from the band's business card), Footer.
+- Look (current): light, calm ivory and gold, based on research of yoga and
+  spiritual sites (cream, white space, soft gold, thin serif). Slow golden
+  marble background (WebGL, `src/scripts/lava.ts`), LAVA as polished
+  liquid-gold 3D-look serif letters (Cinzel) that fade out fully after ~0.5
+  screens of scrolling, few slow golden dust specks (`src/scripts/embers.ts`),
+  fine gold lotus mandala centred behind content (`src/components/Mandala.astro`).
+- Mobile: renders at up to 2x for crisp letters, checked in an iPhone 15
+  emulation (Chromium, not real Safari). `prefers-reduced-motion` gives a
+  static background and no animation. Fallback if WebGL is missing.
+- Tried and removed: a Three.js 3D figure (too futuristic), the dark red-gold look.
 - `demo/index.html` = the original red-lava demo by boss. Kept on purpose as a
   visual reference (not part of the build).
 
 ## Next
-- Look at the page on a real phone (smoothness) and at desktop width, full scroll.
+- Test on a real iPhone/Android (smoothness, letter sharpness); check desktop width, full scroll. Optional: install WebKit for Playwright (`playwright-cli install-browser webkit`) for closer iPhone tests.
 - Real band content: texts, photos, logo, audio/video, tour dates.
 - Logo (SVG or transparent PNG) into hero or Buddha/Shiva section.
 - Music section: real YouTube/Spotify links or embeds.
@@ -39,11 +42,13 @@ npm run build    # static files in dist/ (GitHub Pages / Cloudflare Pages)
 
 ## Open questions (ask the band)
 - Exact Facebook page URL (current link is only a Facebook search for "LAVA MeditationMusic").
+- The band's Instagram handle is `lava_spiritual_music` (the business card has a typo without the t).
+- Is the phone number allowed to be public on the site?
 - Instagram, Facebook and YouTube could not be read automatically (login
   walls). Real bio/post texts would help to write better copy.
 - Singer / percussion on the site, or only handpan and guitar?
 - May we use the forest video (handpan + guitar) and the circular logo?
-- Final colours (copper-gold now), domain, languages (German/English).
+- Final colours (ivory and gold now; maybe a light cream section or warmer/cooler tone), domain, languages (German/English).
 - Real Buddha/Shiva wording.
 
 ## Notes
