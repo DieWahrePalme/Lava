@@ -1,6 +1,6 @@
 # Handoff: Lava web page
 
-Status: live with the band's real German content. Imprint/privacy still missing.
+Status: live with the band's real German content, Impressum and Datenschutz pages online.
 
 ## Run it
 ```
@@ -25,11 +25,21 @@ Note: the dev URL ends in `/Lava/` because of the GitHub Pages `base`.
 - All copy and links in one file: `src/content.ts` (German, from the band).
 - Sections: Hero (LAVA, "Musik für die Seele", Innehalten · Atmen · Eintauchen ·
   Loslassen), Eintauchen/Loslassen/Ankommen (about), Raum zum Ankommen (yoga
-  values + Buddha-lava picture), Instruments (Akustikgitarre, Handpan,
-  Percussion, ruhige Beats), Biografie (band photo, Gianni, Jimmy, how LAVA
-  started), Hören (3 YouTube previews), Live (no dates yet), Für Yoga-Studios
-  (the band's letter), Folge dem Fluss (Instagram, YouTube, Facebook), Kontakt
-  (phone), Footer.
+  values with own SVG icons + Buddha-lava picture), Instruments (Akustikgitarre,
+  Handpan, Percussion, ruhige Beats), Biografie (band photo, Gianni, Jimmy, how
+  LAVA started), Für Yoga-Studios (the band's letter), Hören (3 YouTube
+  previews), Live (no dates yet), Folge dem Fluss (Instagram, YouTube,
+  Facebook), Kontakt (phone), Footer with Impressum and Datenschutz.
+- Icons are own SVGs (`src/components/Icon.astro`), not text symbols (phones
+  draw those differently).
+- Impressum (`src/pages/impressum.astro`) and Datenschutz
+  (`src/pages/datenschutz.astro`), layout `src/layouts/Legal.astro`. Data in
+  `legal` in `src/content.ts`: Kirstattstraße 18, 89407 Dillingen an der Donau
+  (OT Kicklingen), Jimmy0815@yahoo.de, two private persons (no GbR), phone.
+  Privacy text covers GitHub Pages hosting, click-to-load YouTube, self-hosted
+  fonts, social links, contact, rights. It is a draft: have it checked by a
+  lawyer or generator (e.g. eRecht24). A yellow "Entwurf" box shows only while
+  `legal` values contain [brackets].
 - YouTube: click-to-load with `youtube-nocookie`, preview images stored locally
   (`src/assets/video-<id>.jpg`). Videos are listed in `music.videos`.
   Not used: "23. April 2026", short "12. April 2026".
@@ -51,19 +61,18 @@ Note: the dev URL ends in `/Lava/` because of the GitHub Pages `base`.
   (not part of the build).
 
 ## Next
-- Impressum and Datenschutz pages (footer links are `#`). Needs legal text and
-  address. Privacy text must mention YouTube embeds and GitHub Pages hosting.
 - Exact Facebook page URL (now only a search link, see `follow.channels`).
-- Booking email, if there is one (only phone is shown).
 - Live dates when the band has them (`live.dates`; section hides the list if empty).
 - Own recordings (Spotify etc.) in `music`.
+- Legal check of Impressum/Datenschutz (see above). Update Datenschutz if new
+  services are added (analytics, forms, more embeds).
 - Optional: English version, own domain, smaller logo in hero.
 - Test on a real iPhone/Android (smoothness). If still jerky, lower effects
   further (fewer dust specks, lower background resolution).
 
 ## Open questions (ask the band)
-- Are Gianni and Jimmy OK with the band photo and phone number being public?
-- Imprint details (name, address) and privacy contact.
+- Are Gianni and Jimmy OK with the band photo being public? (Phone, address and
+  email in the Impressum were approved by Moritz.)
 - Percussion / "Schlagzeug": listed as instrument next to handpan. Correct?
 - Final colours and the use of the red lava logo (now only as picture in
   "Raum zum Ankommen").
