@@ -84,3 +84,14 @@ footer { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify
 .tags { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 1.6rem; opacity: .75; font-size: .95rem; }
 
 h2::after { content: ""; display: block; width: 56px; height: 1px; margin-top: 1rem; background: linear-gradient(90deg, var(--glow), transparent); }
+
+/* hero mandalas in the corners, gone after a little scrolling */
+.hm { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; color: #b8862e; opacity: clamp(0, calc(1 - var(--h, 0) * 2.5), 1); }
+.hm svg { position: absolute; transform: translate(-50%, -50%); animation: hmspin 300s linear infinite; }
+.hm svg * { vector-effect: non-scaling-stroke; }
+.hm-tl { left: 0; top: 0; width: clamp(300px, 85vmin, 760px); opacity: .55; }
+.hm-br { left: 100%; top: 100%; width: clamp(340px, 95vmin, 860px); opacity: .55; animation-direction: reverse !important; }
+.hm-tr { left: 100%; top: 4%; width: clamp(160px, 42vmin, 380px); opacity: .4; }
+.hm-bl { left: 0; top: 96%; width: clamp(160px, 42vmin, 380px); opacity: .4; animation-direction: reverse !important; }
+@keyframes hmspin { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .hm svg { animation: none; } }

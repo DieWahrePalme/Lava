@@ -31,22 +31,11 @@ void main(){
  float spec=pow(max(dot(nn,normalize(vec3(-.4,.6,.7))),0.),20.);
  col=col*(.95+.08*nn.x)+vec3(1.,.97,.9)*spec*.18;
  float hero=1.-smoothstep(.0,.5,H); // title fully gone after ~0.7 screens
- vec2 mu=(uv-vec2(.5,.42))/(1.+H*.25)+vec2(.5,.42); // letters fly towards you while scrolling
+ vec2 mu=(uv-vec2(.5,.42))/(1.+H*.08)+vec2(.5,.42); // letters fly towards you while scrolling
  float m=mk(mu);
- vec2 r=vec2(.011*R.y/R.x,.011);
- float gx=mk(mu+vec2(r.x,0.))-mk(mu-vec2(r.x,0.));
- float gy=mk(mu+vec2(0.,r.y))-mk(mu-vec2(0.,r.y));
- vec3 nrm=normalize(vec3(-gx,-gy,.45));
- float diff=dot(nrm,normalize(vec3(-.5,.6,.7)));
- // extrusion: look up-left for letter pixels, so a dark side wall appears down-right
- float ext=0.,dep=0.;
- for(int i=1;i<=14;i++){float fi=float(i);
-  float k=mk(mu+vec2(-.0009*R.y/R.x,.0009)*fi);
-  if(ext<.5&&k>.5){ext=1.;dep=fi/14.;}}
- float lv=clamp(f*1.3+.15+.3*diff,0.,1.);
- vec3 face=goldc(lv)+vec3(1.,.9,.65)*length(vec2(gx,gy))*.15;
- vec3 wall=vec3(.66,.5,.24)*(1.-dep*.35);
- col=mix(col,wall,ext*(1.-m)*hero);
+ // clean flat gold with a slow flow of colour inside the letters
+ float lv=clamp(f*1.1+.05,0.,.85);
+ vec3 face=goldc(lv);
  col=mix(col,face,m*hero);
  col*=1.-.12*length(uv-.5);
  gl_FragColor=vec4(col,1.);}`;
@@ -94,14 +83,22 @@ export function startLava(cv: HTMLCanvasElement, word: string): boolean {
     c.fillStyle = '#000';
     c.fillRect(0, 0, m.width, m.height);
     c.fillStyle = '#fff';
-    c.textAlign = 'center';
-    c.textBaseline = 'middle';
-    const face = 'Cinzel,Georgia,serif,-apple-system,Helvetica,Arial,sans-serif';
-    c.font = `900 100px ${face}`;
-    // fit the word to 84% of the width (the font is wide), but never taller than 40% of the screen
-    const size = Math.min((100 * m.width * 0.8) / c.measureText(word).width, m.height * 0.4);
-    c.font = `900 ${size}px ${face}`;
-    c.fillText(word, m.width / 2, m.height * 0.42);
+    c.textAlign = 'left';
+    c.textBaseline = 'alphabetic';
+    const face = 'Cinzel,"Times New Roman",serif';
+    // clean, widely spaced capitals; letters drawn one by one so spacing works in every browser
+    const track = 0.18;
+    const width = (px: number) => {
+      c.font = `500 ${px}px ${face}`;
+      return [...word].reduce((w, ch) => w + c.measureText(ch).width + px * track, 0) - px * track;
+    };
+    const size = Math.min((100 * m.width * 0.86) / width(100), m.height * 0.3);
+    let x = (m.width - width(size)) / 2;
+    c.font = `500 ${size}px ${face}`;
+    for (const ch of word) {
+      c.fillText(ch, x, m.height * 0.42 + size * 0.35);
+      x += c.measureText(ch).width + size * track;
+    }
     gl!.bindTexture(gl!.TEXTURE_2D, tex);
     gl!.texImage2D(gl!.TEXTURE_2D, 0, gl!.RGBA, gl!.RGBA, gl!.UNSIGNED_BYTE, m);
     gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MIN_FILTER, gl!.LINEAR);
@@ -145,7 +142,7 @@ export function startLava(cv: HTMLCanvasElement, word: string): boolean {
   });
   reduce.addEventListener('change', () => { if (!reduce.matches) requestAnimationFrame(frame); else draw(0); });
   // wait for the web font so the mask uses it
-  document.fonts.load('900 100px Cinzel', word).finally(() => {
+  document.fonts.load('500 100px Cinzel', word).finally(() => {
     resize();
     onScroll();
     if (reduce.matches) draw(0); else requestAnimationFrame(frame);

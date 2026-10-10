@@ -1,8 +1,10 @@
 ---
 import '../styles/global.css';
+import '@fontsource/cinzel/500.css';
 import '@fontsource/cinzel/900.css';
 import '@fontsource/cinzel/700.css';
 import Mandala from '../components/Mandala.astro';
+import HeroMandalas from '../components/HeroMandalas.astro';
 import { site, about, path, follow, instruments, music, live, contact, footer } from '../content';
 ---
 <!doctype html>
@@ -19,6 +21,7 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
 <body>
   <a class="skip" href="#about">Skip to content</a>
   <canvas id="gl" aria-hidden="true"></canvas>
+  <HeroMandalas />
   <Mandala />
   <canvas id="embers-back" class="embers" aria-hidden="true"></canvas>
   <main>
