@@ -5,7 +5,13 @@ import '@fontsource/cinzel/900.css';
 import '@fontsource/cinzel/700.css';
 import Mandala from '../components/Mandala.astro';
 import HeroMandalas from '../components/HeroMandalas.astro';
-import { site, about, path, follow, instruments, music, live, contact, footer } from '../content';
+import { Image } from 'astro:assets';
+import { site, about, occasions, instruments, bio, music, live, yoga, follow, contact, footer } from '../content';
+import buddha from '../assets/buddha-lava.jpg';
+import band from '../assets/band.jpg';
+// video preview images: src/assets/video-<youtube id>.jpg
+const thumbs = import.meta.glob<{ default: ImageMetadata }>('../assets/video-*.jpg', { eager: true });
+const thumb = (id: string) => thumbs[`../assets/video-${id}.jpg`].default;
 ---
 <!doctype html>
 <html lang={site.lang} class="nojs">
@@ -20,7 +26,7 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
   <script is:inline>document.documentElement.classList.remove('nojs')</script>
 </head>
 <body>
-  <a class="skip" href="#about">Skip to content</a>
+  <a class="skip" href="#about">{site.skip}</a>
   <canvas id="gl" aria-hidden="true"></canvas>
   <HeroMandalas />
   <Mandala />
@@ -29,15 +35,30 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
     <section class="hero">
       <h1 class="title" id="top" translate="no">{site.name}</h1>
       <p>{site.tagline}</p>
+      <p class="mantra">{site.mantra.join(' · ')}</p>
     </section>
 
-    <section id="about"><div class="rv"><h2>{about.title}</h2><p class="t">{about.text}</p></div></section>
+    <section id="about">
+      <div class="rv">
+        <h2>{about.title}</h2>
+        {about.paragraphs.map((t) => <p class="t">{t}</p>)}
+      </div>
+    </section>
 
-    <section id="path">
-      <div class="rv"><h2>{path.title}</h2><p class="t">{path.text}</p></div>
+    <section id="yoga-werte" class="wide">
+      <div class="split flip">
+        <figure class="art rv">
+          <Image src={buddha} alt={occasions.imageAlt} widths={[480, 800, 1170]} sizes="(min-width: 860px) 480px, 90vw" loading="lazy" />
+        </figure>
+        <div class="rv">
+          <h2>{occasions.title}</h2>
+          <p class="t">{occasions.text}</p>
+        </div>
+      </div>
       <ul class="themes">
-        {path.items.map((i) => <li class="card rv"><span class="sym" aria-hidden="true">{i.symbol}</span><b>{i.name}</b><span>{i.text}</span></li>)}
+        {occasions.items.map((i) => <li class="card rv"><span class="sym" aria-hidden="true">{i.symbol}</span><b>{i.name}</b><span>{i.text}</span></li>)}
       </ul>
+      <p class="t closing rv">{occasions.closing}</p>
     </section>
 
     <section id="instruments">
@@ -47,22 +68,59 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
       </ul>
     </section>
 
+    <section id="bio">
+      <div class="rv"><h2>{bio.title}</h2><p class="t">{bio.intro}</p></div>
+      <figure class="photo rv">
+        <Image src={band} alt={bio.imageAlt} widths={[480, 800, 1170]} sizes="(min-width: 980px) 900px, 92vw" loading="lazy" />
+      </figure>
+      <ul class="cards two">
+        {bio.people.map((p) => <li class="card rv"><b>{p.name}</b><em>{p.role}</em><span>{p.text}</span></li>)}
+      </ul>
+      <div class="rv story">
+        <h3>{bio.storyTitle}</h3>
+        {bio.story.map((t) => <p class="t">{t}</p>)}
+        <p class="t closing">{bio.closing}</p>
+      </div>
+    </section>
+
     <section id="music">
       <div class="rv">
         <h2>{music.title}</h2><p class="t">{music.text}</p>
-        <ul class="list">
-          {music.tracks.map((t) => <li class="row"><span class="d" aria-hidden="true">▶</span><span>{t.title}</span><span class="r">{t.length}</span></li>)}
-        </ul>
-        <div class="pills">{music.links.map((l) => <a class="pill" href={l.href}>{l.label}</a>)}</div>
+        {music.tracks.length > 0 && (
+          <ul class="list">
+            {music.tracks.map((t) => <li class="row"><span class="d" aria-hidden="true">▶</span><span>{t.title}</span><span class="r">{t.length}</span></li>)}
+          </ul>
+        )}
+        <div class="videos">
+          {music.videos.map((v) => (
+            <button class="video" type="button" data-id={v.id} aria-label={`${music.playLabel} ${v.title}`}>
+              <Image src={thumb(v.id)} alt="" widths={[480, 800]} sizes="(min-width: 860px) 320px, 92vw" loading="lazy" />
+              <span class="play" aria-hidden="true"></span>
+              <span class="vt">{v.title}</span>
+            </button>
+          ))}
+        </div>
+        <div class="pills">{music.links.map((l) => <a class="pill" href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>)}</div>
       </div>
     </section>
 
     <section id="live">
       <div class="rv">
         <h2>{live.title}</h2><p class="t">{live.text}</p>
-        <ul class="list">
-          {live.dates.map((d) => <li class="row"><span class="d">{d.date}</span><span>{d.place}<small>{d.venue}</small></span><span class="r">{d.note}</span></li>)}
-        </ul>
+        {live.dates.length > 0 && (
+          <ul class="list">
+            {live.dates.map((d) => <li class="row"><span class="d">{d.date}</span><span>{d.place}<small>{d.venue}</small></span><span class="r">{d.note}</span></li>)}
+          </ul>
+        )}
+      </div>
+    </section>
+
+    <section id="yoga">
+      <div class="rv letter">
+        <h2>{yoga.title}</h2>
+        <p class="t"><strong>{yoga.greeting}</strong></p>
+        {yoga.paragraphs.map((t) => <p class="t">{t}</p>)}
+        <p class="t sign">{yoga.sign}</p>
       </div>
     </section>
 
@@ -79,10 +137,8 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
     <section id="contact">
       <div class="rv">
         <h2>{contact.title}</h2><p class="t">{contact.text}</p>
-        <a class="btn" href={`mailto:${contact.email}`}>{contact.cta}</a>
-        <p><a class="mail" href={`mailto:${contact.email}`}>{contact.email}</a></p>
+        <a class="btn" href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`}>{contact.cta}</a>
         <p><a class="mail" href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`}>{contact.phone}</a></p>
-        <div class="pills">{contact.socials.map((l) => <a class="pill" href={l.href}>{l.label}</a>)}</div>
       </div>
     </section>
   </main>
@@ -110,6 +166,18 @@ import { site, about, path, follow, instruments, music, live, contact, footer } 
     let tick = false;
     addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(() => { tick = false; upd(); }); } }, { passive: true });
     upd();
+    // YouTube only loads after a click (privacy-friendly: youtube-nocookie, no tracking before play)
+    document.querySelectorAll<HTMLButtonElement>('button.video').forEach((b) => {
+      b.addEventListener('click', () => {
+        const f = document.createElement('iframe');
+        f.src = `https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1&rel=0`;
+        f.title = b.getAttribute('aria-label') ?? 'YouTube';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        f.allowFullscreen = true;
+        f.className = 'video-frame';
+        b.replaceWith(f);
+      });
+    });
     const io = new IntersectionObserver(
       (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }),
       { threshold: 0.2 },
