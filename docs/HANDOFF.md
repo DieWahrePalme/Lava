@@ -1,6 +1,6 @@
 # Handoff: Lava web page
 
-Status: live with the band's real German content, Impressum and Datenschutz pages online.
+Status: live at https://lava-musik.de with the band's real German content, Impressum/Datenschutz, pop-up menu and News section. Next big task: TinaCMS admin (see Next).
 
 ## Run it
 ```
@@ -20,6 +20,9 @@ npm run build    # static files in dist/
 - Commit and push only when Moritz asks.
 
 ## Done
+- (Latest session) Custom domain lava-musik.de live with HTTPS; pop-up menu;
+  News section (placeholder entry); round LAVA logo in "Raum zum Ankommen" and as
+  favicon / apple-touch-icon. All pushed to `main`.
 - Astro + TypeScript, static output, port 4400 (not 8081 / 4321).
 - All copy and links in one file: `src/content.ts` (German, from the band).
 - Sections: Hero (LAVA, "Musik für die Seele", Innehalten · Atmen · Eintauchen ·
@@ -70,6 +73,15 @@ npm run build    # static files in dist/
   placeholder entry, replace it with real news. Empty list hides section and menu link.
 
 ## Next
+- **HIGH PRIORITY, not started (Moritz: "noch nicht", wait for his go): TinaCMS admin at `/admin`**
+  so Moritz's father can edit News, Videos and Live dates himself (forms only, no coding).
+  Plan: move `news`, `music.videos`, `live.dates` out of `src/content.ts` into own
+  content files (Astro content collections/JSON), add TinaCMS (`tinacms build` -> `/admin`),
+  extend `.github/workflows/deploy.yml`. Tina Cloud handles login; saves commit to
+  the repo and the normal deploy runs (~1 min). Moritz must: create a free tina.io
+  account, connect `DieWahrePalme/Lava`, invite his father, give the client id/token
+  (store as GitHub Actions secrets, never in the repo). Check free-tier limits (users)
+  on tina.io first. Test fully before pushing. Rest of the texts stay in `content.ts`.
 - Exact Facebook page URL (now only a search link, see `follow.channels`).
 - Live dates when the band has them (`live.dates`; section hides the list if empty).
 - Own recordings (Spotify etc.) in `music`.
