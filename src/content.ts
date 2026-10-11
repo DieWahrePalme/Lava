@@ -12,6 +12,37 @@ export const site = {
   skip: 'Zum Inhalt springen',
 };
 
+// Menu (pop-up). `id` = section id on the page. Order here = order in the menu.
+export const nav = {
+  button: 'Menü',
+  close: 'Menü schließen',
+  label: 'Abschnitte',
+  items: [
+    { id: 'live', label: 'Live' },
+    { id: 'news', label: 'News' },
+    { id: 'music', label: 'Hören' },
+    { id: 'about', label: 'Über LAVA' },
+    { id: 'bio', label: 'Biografie' },
+    { id: 'yoga', label: 'Für Yoga-Studios' },
+    { id: 'follow', label: 'Folgen' },
+    { id: 'contact', label: 'Kontakt' },
+  ],
+};
+
+// News: newest first. Add an entry to show it; with an empty list the section (and its menu link) disappears.
+// PLACEHOLDER entry below: replace with real news.
+export const news = {
+  title: 'News.',
+  items: [
+    {
+      date: '2026-10-11',
+      dateLabel: '11. Oktober 2026',
+      title: 'Platzhalter: Die neue Webseite ist online',
+      text: 'Platzhaltertext. Hier stehen bald Neuigkeiten von LAVA: neue Videos, Konzerte und Termine.',
+    },
+  ] as { date: string; dateLabel: string; title: string; text: string }[],
+};
+
 export const about = {
   title: 'Eintauchen. Loslassen. Ankommen.',
   paragraphs: [

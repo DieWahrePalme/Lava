@@ -64,6 +64,11 @@ npm run build    # static files in dist/
   `www` CNAME). Custom domain set in Pages, certificate issued, HTTPS enforced.
 - Keep auto-renew on at IONOS; domain should stay on the name of Gianni and/or Jimmy.
 
+## Menu and News
+- Pop-up menu (button top right, native `<dialog>`): links come from `nav.items` in `src/content.ts`.
+- News section after the intro: entries in `news.items` (newest first). Currently ONE
+  placeholder entry, replace it with real news. Empty list hides section and menu link.
+
 ## Next
 - Exact Facebook page URL (now only a search link, see `follow.channels`).
 - Live dates when the band has them (`live.dates`; section hides the list if empty).

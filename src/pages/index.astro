@@ -7,7 +7,7 @@ import Mandala from '../components/Mandala.astro';
 import HeroMandalas from '../components/HeroMandalas.astro';
 import { Image } from 'astro:assets';
 import Icon from '../components/Icon.astro';
-import { site, about, occasions, instruments, bio, music, live, yoga, follow, contact, footer } from '../content';
+import { site, nav, news, about, occasions, instruments, bio, music, live, yoga, follow, contact, footer } from '../content';
 import buddha from '../assets/buddha-lava.jpg';
 import band from '../assets/band.jpg';
 // video preview images: src/assets/video-<youtube id>.jpg
@@ -28,6 +28,15 @@ const thumb = (id: string) => thumbs[`../assets/video-${id}.jpg`].default;
 </head>
 <body>
   <a class="skip" href="#about">{site.skip}</a>
+  <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu"><Icon name="menu" /><span>{nav.button}</span></button>
+  <dialog id="menu" class="menu" aria-label={nav.label}>
+    <button class="menu-close" type="button" aria-label={nav.close}><Icon name="close" /></button>
+    <nav aria-label={nav.label}>
+      <ul>
+        {nav.items.filter((i) => i.id !== 'news' || news.items.length > 0).map((i) => <li><a href={`#${i.id}`}>{i.label}</a></li>)}
+      </ul>
+    </nav>
+  </dialog>
   <canvas id="gl" aria-hidden="true"></canvas>
   <HeroMandalas />
   <Mandala />
@@ -45,6 +54,17 @@ const thumb = (id: string) => thumbs[`../assets/video-${id}.jpg`].default;
         {about.paragraphs.map((t) => <p class="t">{t}</p>)}
       </div>
     </section>
+
+    {news.items.length > 0 && (
+      <section id="news">
+        <div class="rv">
+          <h2>{news.title}</h2>
+          <ul class="list news">
+            {news.items.map((n) => <li class="row"><time class="d" datetime={n.date}>{n.dateLabel}</time><span><b>{n.title}</b><small>{n.text}</small></span></li>)}
+          </ul>
+        </div>
+      </section>
+    )}
 
     <section id="yoga-werte" class="wide">
       <div class="split flip">
@@ -179,6 +199,12 @@ const thumb = (id: string) => thumbs[`../assets/video-${id}.jpg`].default;
         b.replaceWith(f);
       });
     });
+    // pop-up menu (native <dialog>: focus trap + Escape for free)
+    const menu = document.getElementById('menu') as HTMLDialogElement;
+    const btn = document.querySelector<HTMLButtonElement>('.menu-btn')!;
+    btn.addEventListener('click', () => menu.showModal());
+    menu.querySelector('.menu-close')!.addEventListener('click', () => menu.close());
+    menu.addEventListener('click', (e) => { if (e.target === menu || (e.target as HTMLElement).closest('a')) menu.close(); });
     const io = new IntersectionObserver(
       (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }),
       { threshold: 0.2 },
