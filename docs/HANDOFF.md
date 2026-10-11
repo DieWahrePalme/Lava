@@ -6,16 +6,15 @@ Status: live with the band's real German content, Impressum and Datenschutz page
 ```
 cd ~/Programming/Lava
 npm install
-npm run dev      # http://localhost:4400/Lava/  (phone: http://100.117.131.14:4400/Lava/)
+npm run dev      # http://localhost:4400/  (phone: http://100.117.131.14:4400/)
 npm run build    # static files in dist/
 ```
-Note: the dev URL ends in `/Lava/` because of the GitHub Pages `base`.
 
 ## Live
 - Repo: https://github.com/DieWahrePalme/Lava (public), branch `main`.
-- Site: https://diewahrepalme.github.io/Lava/
+- Site: https://lava-musik.de (HTTPS enforced). The old link https://diewahrepalme.github.io/Lava/ redirects (301) to it.
 - Every push to `main` deploys automatically (`.github/workflows/deploy.yml`,
-  Pages source = GitHub Actions). `astro.config.mjs` has `site` and `base: '/Lava'`.
+  Pages source = GitHub Actions). `astro.config.mjs` has `site: https://lava-musik.de` and `base: '/'`; `public/CNAME` holds the domain.
 - The public site shows the band's phone number (Moritz agreed). Remove it in
   `src/content.ts` (`contact.phone`) if that changes.
 - Commit and push only when Moritz asks.
@@ -60,21 +59,10 @@ Note: the dev URL ends in `/Lava/` because of the GitHub Pages `base`.
 - `demo/index.html` = original red-lava demo by boss, kept as visual reference
   (not part of the build).
 
-## Domain (in progress, decided by Moritz)
-- Moritz looks for a professional, cheap `.de` domain (German customers).
-- Ideas (DNS showed no entry, so probably free, verify at registration):
-  `lava-musik.de` (favourite), `lavaklang.de`, `lava-handpan.de`,
-  `lava-klangreise.de`, `lava-meditation.de`. `lava-music.de` is taken.
-- Cloudflare Registrar probably does NOT sell `.de` (not confirmed; check by
-  searching in the Cloudflare dashboard). Plan B: register `.de` at a German
-  registrar (IONOS, INWX, Strato), use Cloudflare only for free DNS, keep the
-  site on GitHub Pages. Domain should be registered on the name of Gianni
-  and/or Jimmy, auto-renew on.
-- When a domain exists: set `site` to the domain and `base` to `/` in
-  `astro.config.mjs`, add `public/CNAME` with the domain, set the custom
-  domain in GitHub Pages (Settings > Pages), add DNS records (A records to
-  GitHub Pages IPs or a CNAME for `www`), enable "Enforce HTTPS", update
-  links if any are absolute. Then rebuild and test.
+## Domain (done)
+- `lava-musik.de` registered at IONOS, DNS points to GitHub Pages (A records +
+  `www` CNAME). Custom domain set in Pages, certificate issued, HTTPS enforced.
+- Keep auto-renew on at IONOS; domain should stay on the name of Gianni and/or Jimmy.
 
 ## Next
 - Exact Facebook page URL (now only a search link, see `follow.channels`).
@@ -82,7 +70,7 @@ Note: the dev URL ends in `/Lava/` because of the GitHub Pages `base`.
 - Own recordings (Spotify etc.) in `music`.
 - Legal check of Impressum/Datenschutz (see above). Update Datenschutz if new
   services are added (analytics, forms, more embeds).
-- Optional: English version, own domain, smaller logo in hero.
+- Optional: English version, smaller logo in hero.
 - Test on a real iPhone/Android (smoothness). If still jerky, lower effects
   further (fewer dust specks, lower background resolution).
 
