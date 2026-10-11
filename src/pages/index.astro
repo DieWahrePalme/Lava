@@ -8,7 +8,7 @@ import HeroMandalas from '../components/HeroMandalas.astro';
 import { Image } from 'astro:assets';
 import Icon from '../components/Icon.astro';
 import { site, nav, news, about, occasions, instruments, bio, music, live, yoga, follow, contact, footer } from '../content';
-import buddha from '../assets/buddha-lava.jpg';
+import logo from '../assets/lava-logo.png';
 import band from '../assets/band.jpg';
 // video preview images: src/assets/video-<youtube id>.jpg
 const thumbs = import.meta.glob<{ default: ImageMetadata }>('../assets/video-*.jpg', { eager: true });
@@ -23,7 +23,8 @@ const thumb = (id: string) => thumbs[`../assets/video-${id}.jpg`].default;
   <meta name="description" content={site.description} />
   <meta name="theme-color" content="#fbf5e9" />
   <title>{site.title}</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><rect width='8' height='8' rx='2' fill='%23c8902a'/></svg>" />
+  <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}favicon.png`} />
+  <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}apple-touch-icon.png`} />
   <script is:inline>document.documentElement.classList.remove('nojs')</script>
 </head>
 <body>
@@ -68,8 +69,8 @@ const thumb = (id: string) => thumbs[`../assets/video-${id}.jpg`].default;
 
     <section id="yoga-werte" class="wide">
       <div class="split flip">
-        <figure class="art rv">
-          <Image src={buddha} alt={occasions.imageAlt} widths={[480, 800, 1170]} sizes="(min-width: 860px) 480px, 90vw" loading="lazy" />
+        <figure class="art logo rv">
+          <Image src={logo} alt={occasions.imageAlt} widths={[480, 800, 1000]} sizes="(min-width: 860px) 480px, 90vw" loading="lazy" />
         </figure>
         <div class="rv">
           <h2>{occasions.title}</h2>

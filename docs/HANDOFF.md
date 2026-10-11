@@ -24,7 +24,7 @@ npm run build    # static files in dist/
 - All copy and links in one file: `src/content.ts` (German, from the band).
 - Sections: Hero (LAVA, "Musik für die Seele", Innehalten · Atmen · Eintauchen ·
   Loslassen), Eintauchen/Loslassen/Ankommen (about), Raum zum Ankommen (yoga
-  values with own SVG icons + Buddha-lava picture), Instruments (Akustikgitarre,
+  values with own SVG icons + round LAVA logo), Instruments (Akustikgitarre,
   Handpan, Percussion, ruhige Beats), Biografie (band photo, Gianni, Jimmy, how
   LAVA started), Für Yoga-Studios (the band's letter), Hören (3 YouTube
   previews), Live (no dates yet), Folge dem Fluss (Instagram, YouTube,
@@ -43,7 +43,7 @@ npm run build    # static files in dist/
   (`src/assets/video-<id>.jpg`). Videos are listed in `music.videos`.
   Not used: "23. April 2026", short "12. April 2026".
 - Images through `astro:assets` (webp, responsive, lazy). Files in `src/assets/`:
-  `band.jpg`, `buddha-lava.jpg`, video previews.
+  `band.jpg`, `lava-logo.png` (round logo, also favicon in `public/`), video previews.
 - Look: light, calm ivory and gold (researched yoga/spiritual sites). Slow golden
   marble WebGL background (`src/scripts/lava.ts`, kept cheap for phones), LAVA
   title as real gradient text (Cinzel, clean, no 3D), four corner mandalas on
@@ -88,6 +88,6 @@ npm run build    # static files in dist/
 
 ## Notes
 - The Instagram handle is `lava_spiritual_music` (business card has a typo).
-- Pictures and texts come from the band via Moritz; the Buddha-lava pictures
-  look AI-generated, so check rights/labelling if needed.
+- Pictures and texts come from the band via Moritz; the logo picture (made from the band's image, probably AI-generated)
+  check rights/labelling if needed.
 - No secrets in the repo.

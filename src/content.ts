@@ -62,7 +62,7 @@ export const occasions = {
     { icon: 'whole' as const, name: 'Körper, Geist & Seele', text: 'Die Verbindung, die im Yoga im Mittelpunkt steht.' },
   ],
   closing: 'LAVA möchte nicht nur Musik machen, sondern einen Moment schaffen, in dem die Zeit für einen Augenblick stillsteht.',
-  imageAlt: 'Buddha-Figur aus Lava, in einer Hand eine Handpan, in der anderen eine Gitarre',
+  imageAlt: 'LAVA-Logo: sitzender Buddha zwischen Handpan und Akustikgitarre, umrahmt von einem Mandala',
 };
 
 export const instruments = {
