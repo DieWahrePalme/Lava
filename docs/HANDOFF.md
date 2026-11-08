@@ -23,6 +23,7 @@ npm run build    # static files in dist/
 - (Latest session) Custom domain lava-musik.de live with HTTPS; pop-up menu;
   News section (placeholder entry); round LAVA logo in "Raum zum Ankommen" and as
   favicon / apple-touch-icon. All pushed to `main`.
+- (2026-11-08) Security: npm audit fix + upgrade to Astro 7.4.7 (PRs #1, #2 merged); `npm audit` = 0, no open Dependabot alerts.
 - Astro + TypeScript, static output, port 4400 (not 8081 / 4321).
 - All copy and links in one file: `src/content.ts` (German, from the band).
 - Sections: Hero (LAVA, "Musik für die Seele", Innehalten · Atmen · Eintauchen ·
