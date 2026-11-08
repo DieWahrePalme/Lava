@@ -24,6 +24,7 @@ npm run build    # static files in dist/
   News section (placeholder entry); round LAVA logo in "Raum zum Ankommen" and as
   favicon / apple-touch-icon. All pushed to `main`.
 - (2026-11-08) Security: npm audit fix + upgrade to Astro 7.4.7 (PRs #1, #2 merged); `npm audit` = 0, no open Dependabot alerts.
+- (2026-11-08) CI fix by boss session (PR #3): `deploy.yml` builds with Node 24, because Astro 7 needs Node >= 22.23.4 and `withastro/action@v3` defaults to Node 20. Before this the two deploys after PR #2 failed and lava-musik.de kept serving the old build; deploy is green again (run 42513162430). If a deploy fails after a dependency upgrade, check the Node version in the workflow first.
 - Astro + TypeScript, static output, port 4400 (not 8081 / 4321).
 - All copy and links in one file: `src/content.ts` (German, from the band).
 - Sections: Hero (LAVA, "Musik für die Seele", Innehalten · Atmen · Eintauchen ·
